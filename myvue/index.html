@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+	<div class="wrap">
+        <header>购物车<small>(102)</small><a href="#" class="edit">编辑</a></header>
+        <section id="main">
+           <div class="scroller">
+               <div class="top">
+	               	<i class="iconfont">&#xe713;</i>
+	               	<p>我的天猫超市卡可用余额：79.8元，在天猫APP可使用超市卡结算哦！</p>
+	               	<i class="iconfont">&#xe6ef;</i>
+               </div>
+               <div class="center">
+                  <div class="p_top">
+                  	<p class="pp"><input type="checkbox"></p>
+                    <i class="iconfont">&#xe68f;</i>
+                  	<span> 一说科技</span>
+                  	<i class="iconfont">&#xe723;</i>
+                  </div>
+                  <dl class="dls">
+                  	<dt>
+                  	    <p class="pp"><input type="checkbox"></p>
+                  	    <img src="images/s1.jpg" alt="">
+                  	</dt>
+                  	<dd>
+                  		<div>
+                            <p>一说智能机器人s1儿童陪伴机器人玩具早教故事机</p>
+                            <i class="iconfont">&#xe71f;</i>
+                  		</div>
+                  		<div>
+                            <p>
+                                <span>￥898</span>
+                                <small>￥1280</small>
+                            </p>
+                            <b>×1</b>
+                  		</div>
+                  	</dd>
+                  </dl>
+               </div>
+               <div class="content">
+                   <div class="p_top">
+	                  	<p class="pp"><input type="checkbox"></p>
+                      <i class="iconfont">&#xe68f;</i>
+	                  	<span> 天猫超市</span>
+	                  	<i class="iconfont">&#xe723;</i>
+	               </div>
+                  <dl class="dls" v-for="item in datas.shops">
+                  	<dt>
+                  	    <p class="pp"><input type="checkbox"></p>
+                  	    <img v-bind:src='item.src' alt="">
+                  	</dt>
+                  	<dd>
+                  		<div>
+                            <p>{{item.tit1}}</p>
+                            <i class="iconfont">&#xe71f;</i>
+                  		</div>
+                  		<div>
+                            <p>
+                                <span>￥{{item.price}}</span>
+                                <small>￥{{item.kg}}</small>
+                            </p>
+                            <b>×{{item.number}}</b>
+                  		</div>
+                  	</dd>
+                  </dl>
+               </div>
+           </div>
+        </section>
+        <footer>
+            <div class="foot_top">
+               <div class="left">
+                  <p class="pp"><input type="checkbox"></p>
+                  全选
+               </div>
+               <div class="right">
+                  <p>合计：<span>￥0</span></p>
+                  <button>结算(<small>0</small>)</button>
+               </div>
+            </div>
+      <ul id="uls">
+				<li><i class="iconfont">&#xe6cd;</i><span>首页</span></li>
+				<li><i class="iconfont">&#xe62e;</i><span>微淘</span></li>
+				<li><i class="iconfont">&#xe60e;</i><span>信息</span></li>
+				<li class="on"><i class="iconfont">&#xe63c;</i><span>购物车</span></li>
+				<li><i class="iconfont">&#xe6cc;</i><span>我的</span></li>
+			</ul>			
+        </footer>
+	</div>
+</body>
+<script src="js/vue2.js"></script>
+<script src="js/iscroll5.js"></script>
+<script src="js/jquery-1.11.1.js"></script>
+<script>
+     document.documentElement.style.fontSize=window.innerWidth/320*50+"px";   
+
+     var myvue=new Vue({
+     	el:"#main",
+     	data:{
+          datas:{
+          	shops:null
+          }
+     	},
+     	created: function() {
+	         $.ajax({
+  		     	url:"http://localhost:8080/index",
+  		     	type:"get",
+  		     	success:function(data){		
+  		            parse=JSON.parse(data)
+  		            myvue.$set(myvue.$data.datas,"shops",parse)
+  		     	}
+		     })
+	    },
+	    updated() {
+         myScroll.refresh();
+      }
+     })
+     var myScroll=new IScroll("#main");
+     $("#uls").on("click","li",function(){
+        $(this).addClass("on").siblings().removeClass()
+     })
+     console.log(myvue.datas)
+</script>
+</html>
