@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+	<div class="wrap" id="app">
+       <header>
+          <span></span>
+          <ul class="lis">
+          	<li class="on">消息</li>
+          	<li>电话</li>
+          </ul>
+          <i class="iconfont">&#xe6fb;</i>
+       </header>
+       <section id="main">
+       	<div class="scroller">
+           <div class="top">
+               <input type="text" placeholder="搜索">
+               <i class="iconfont">&#xe729;</i>
+            </div>
+            <div class="content">
+                <dl v-for="item in message.datas">
+                	<dt><img v-bind:src="item.src" alt=""></dt>
+                	<dd>
+                		<p>
+                			<span>{{item.tit1}}</span>
+                			<time>{{item.time}}</time>
+                		</p>
+                		<p>{{item.tit2}}</p>
+                	</dd>
+                </dl>
+            </div>
+       	</div>
+       </section>
+       <footer>
+          <ul class="uls">
+          	<li class="on"><i class="iconfont">&#xe60e;</i><span>消息</span></li>
+          	<li><i class="iconfont">&#xe611;</i><span>联系人</span></li>
+          	<li><i class="iconfont">&#xe70e;</i><span>动态</span></li>
+          </ul>
+       </footer>
+	</div>
+</body>
+<script src="js/jquery-1.11.1.js"></script>
+<script src="js/iscroll5.js"></script>
+<script src="js/vue2.js"></script>
+<script>
+    document.documentElement.style.fontSize=window.innerWidth/320*50+"px";
+    var vm=new Vue({
+    	el:"#app",
+    	data:{
+    		message:{
+    			datas:null
+    		}
+    	},
+    	created(){
+           $.ajax({
+		    	url:"http://localhost:8090/index",
+		    	type:"get",
+		    	success:function(data){
+		    		newDate=JSON.parse(data);
+		    		vm.$set(vm.$data.message,"datas",newDate)
+		    	}
+		    })
+    	},
+    	updated(){
+    		myScroll.refresh()
+    	}
+    })
+    console.log(vm.message)
+    var myScroll=new IScroll("#main")
+    $(".uls").on("click","li",function(){
+    	$(this).addClass("on").siblings().removeClass()
+    })
+    $(".lis").on("click","li",function(){
+    	$(this).addClass("on").siblings().removeClass()
+    })
+</script>
+</html>
