@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	
+</head>
+<body>
+	<div id="app">
+		<div class="wrap">
+            <header>
+                <img src="./src/images/1.jpg">
+                <p><img src="./src/images/1.jpg"><input type="text" placeholder="观察|嘟嘟|鬼故事"></p>
+                <img src="./src/images/1.jpg">
+                <img src="./src/images/1.jpg">
+                <img src="./src/images/1.jpg">  
+            </header>       
+            <section>
+                <div class="scroller">
+                    <ul class="uls">
+                      <router-link tag="li" to="/home">热门</router-link> 
+                      <router-link tag="li" to="/part">分类</router-link> 
+                      <router-link tag="li" to="/jing">精品</router-link>
+                      <router-link tag="li" to="zhi">直播</router-link>
+                      <router-link tag="li" to="guang">广播</router-link>   
+                    </ul>
+                     <router-view></router-view> 
+                </div>
+            </section>
+    <footer>
+        <ul>
+            <li><img src="./src/images/1.jpg"><span>首页</span></li>
+            <li><img src="./src/images/1.jpg"><span>历史</span></li>
+            <li><span></span></li>
+            <li><img src="./src/images/1.jpg"><span>发现</span></li>
+            <li><img src="./src/images/1.jpg"><span>我的</span></li>
+            <div class="po"><div></div></div>
+        </ul>
+    </footer>
+  </div>
+</div>
+<script>
+  document.documentElement.style.fontSize=window.innerWidth/320*50+"px"
+</script>
+</body>
+</html>
